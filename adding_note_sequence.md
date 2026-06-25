@@ -28,5 +28,5 @@ sequenceDiagram
     server-->>browser: [{"content": "Clouds on the sky", "date":"2026-06-25T08:26:03.206Z"}, ...] 
     deactivate server
 
-    Note right of browser: Callback function is run in the browser, adds new note and renders notes.
+    Note right of browser: Callback function is run in the browser, renders notes with new note added.
 ```
