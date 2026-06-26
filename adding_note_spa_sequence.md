@@ -2,6 +2,9 @@
 sequenceDiagram
     participant browser
     participant server 
+    
+    activate browser
+    deactivate browser
 
     Note right of browser: By submitting new note, the browser renders the note <br>with the use of JavaScript code to the current view, without reloading the page.
 
