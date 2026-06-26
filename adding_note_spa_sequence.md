@@ -9,5 +9,5 @@ sequenceDiagram
     activate server
     deactivate server
 
-    Note right of browser: The added note is sent as JSON to the server. <br>_Status 201 created_ tells, that on the server side a new note instance with the sent note is added and saved. 
+    Note right of browser: The added note is sent as JSON to the server. <br>'Status 201 created' tells, that on the server side a new note instance with the sent note is added and saved. 
 ```
