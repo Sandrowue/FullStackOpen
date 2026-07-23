@@ -7,16 +7,18 @@ const Button = ({onClick, text}) => {
   )
   }
 
+const StatisticsLIne = ({text, value}) => <p>{text}{value}</p>
+
 const Statistics = ({good, ok, poor, total, average, positive}) => {
   return (
   <div>
-    <p>Good: {good}</p>
-    <p>Ok: {ok}</p>
-    <p>Poor: {poor}</p>
+    <StatisticsLIne text="Good: " value={good}/>
+    <StatisticsLIne text="Ok: " value={ok}/>
+    <StatisticsLIne text= "Poor: " value={poor}/>
     <br />
-    <p>Total: {total}</p>
-    <p>Averege: {average}</p>
-    <p>Positive: {positive}</p>
+    <StatisticsLIne text="Total " value={total}/>
+    <StatisticsLIne text="Averege: " value={average}/>
+    <StatisticsLIne text="Positive: " value={positive}/>
   </div>
   )
 }
