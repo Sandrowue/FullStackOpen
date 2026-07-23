@@ -7,7 +7,7 @@ const Button = ({onClick, text}) => {
   )
   }
 
-const Display = ({good, ok, poor, total}) => {
+const Display = ({good, ok, poor, total, average, positive}) => {
   return (
   <div>
     <p>Good: {good}</p>
@@ -15,6 +15,8 @@ const Display = ({good, ok, poor, total}) => {
     <p>Poor: {poor}</p>
     <br />
     <p>Total: {total}</p>
+    <p>Averege: {average}</p>
+    <p>Positive: {positive}</p>
   </div>
   )
 }
@@ -25,25 +27,36 @@ const App = () => {
   const [ok, setOk] = useState(0)
   const [poor, setPoor] = useState(0)
   const [total, setTotal] = useState(0)
+  const [average, setAverage] = useState(0)
+  const [positive, setPositive] = useState(0)
 
   const increaseGood = () => {
     setGood(good + 1);
     const goodSum = good + 1
+    const totalSum = goodSum + ok + poor
+    const calculateAverage = (goodSum - poor) / totalSum
+    const positivePercentage = goodSum / totalSum * 100
     return (
-    goodSum, setTotal(goodSum + ok + poor)
+      goodSum, setTotal(totalSum), setAverage(calculateAverage), setPositive(positivePercentage)
   )}
   const increaseOk = () => {
     setOk(ok + 1);
     const okSum = ok + 1
+    const totalSum = okSum + good + poor
+    const calculateAverage = (good - poor) / totalSum
+    const positivePercentage = good / totalSum * 100
     return (
-    okSum, setTotal(okSum + good + poor)
+    okSum, setTotal(totalSum), setAverage(calculateAverage), setPositive(positivePercentage)
     
   )}
   const increasePoor = () => {
     setPoor(poor +1)
     const poorSum = poor + 1
+    const totalSum = poorSum + good + ok
+    const calculateAverage = (good - poorSum) / totalSum
+    const positivePercentage = good / totalSum * 100
     return (
-    poorSum, setTotal(poorSum + good + ok)
+    poorSum, setTotal(totalSum), setAverage(calculateAverage), setPositive(positivePercentage)
   )}
   
   return (
@@ -55,7 +68,7 @@ const App = () => {
       <br />
       <br />
       <h2>Statistics</h2>
-      <Display good={good} ok={ok} poor={poor} total={total}/>
+      <Display good={good} ok={ok} poor={poor} total={total} average={average} positive={positive}/>
     </div>
   )
 }
