@@ -7,7 +7,7 @@ const Button = ({onClick, text}) => {
   )
   }
 
-const Display = ({good, ok, poor, total, average, positive}) => {
+const Statistics = ({good, ok, poor, total, average, positive}) => {
   return (
   <div>
     <p>Good: {good}</p>
@@ -68,7 +68,10 @@ const App = () => {
       <br />
       <br />
       <h2>Statistics</h2>
-      <Display good={good} ok={ok} poor={poor} total={total} average={average} positive={positive}/>
+      {total == 0 ? (
+        <p>No feedback given</p>
+      ) : (<Statistics good={good} ok={ok} poor={poor} total={total} average={average} positive={positive}/>)}
+      
     </div>
   )
 }
