@@ -25,12 +25,18 @@ const App = () => {
     'Documentation is the castor oil of programming. Managers think it is good for programmers and programmers hate it!.'
   ]
 
-  const [selected, setSelected] = useState('')
-  
+  const [selected, setSelected] = useState(null)
+  const [votes, setVotes] = useState(() => Array(anecdotes.length).fill(0))
+
   const randomAnecdote = () => {
     const index = Math.floor(Math.random() * (anecdotes.length));
-    setSelected(anecdotes[index])
-    return selected
+    setSelected(index)
+  }
+
+  const voteForSelected = () => {
+    const votesCopy = [...votes]
+    votesCopy[selected] += 1
+    setVotes(votesCopy)
   }
 
   const Button = ({onClick, text}) => {
@@ -42,11 +48,15 @@ const App = () => {
 
   return (
     <div>
-      <p>{selected}</p>
-      {
-      selected == '' ? (<Button text="anecdote" onClick={randomAnecdote}/>) :
-      (<Button text="next anecdote" onClick={randomAnecdote}/>)
-    }
+      {selected === null ? (
+      <div><p>Click anecdote to start.</p>
+      <Button text="anecdote" onClick={randomAnecdote}/></div>
+    ) : (
+      <div><p>{anecdotes[selected]}</p><p>Votes: {votes[selected]}</p>
+      <Button text="vote" onClick={voteForSelected}/>
+      <Button text="next anecdote" onClick={randomAnecdote}/>
+      </div>
+      )}
     </div>
   )
 }
