@@ -6,7 +6,6 @@ const App = () => {
     'Adding manpower to a late software project makes it later!',
     'If it hurts, do it more often.',
     'The best way to get a project done faster is to start sooner',
-    'Adding manpower to a late software project makes it later!',
     'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
     'Premature optimization is the root of all evil.',
     'Even the best planning is not so omniscient as to get it right the first time.',
@@ -26,9 +25,28 @@ const App = () => {
     'Documentation is the castor oil of programming. Managers think it is good for programmers and programmers hate it!.'
   ]
 
+  const [selected, setSelected] = useState('')
+  
+  const randomAnecdote = () => {
+    const index = Math.floor(Math.random() * (anecdotes.length));
+    setSelected(anecdotes[index])
+    return selected
+  }
+
+  const Button = ({onClick, text}) => {
+    return (
+    <button onClick={onClick}
+    style={{marginRight: "0.4rem", marginLeft: "0.4rem", minWidth: "3rem"}}>{text}</button>
+  )
+  }
+
   return (
     <div>
-      code here
+      <p>{selected}</p>
+      {
+      selected == '' ? (<Button text="anecdote" onClick={randomAnecdote}/>) :
+      (<Button text="next anecdote" onClick={randomAnecdote}/>)
+    }
     </div>
   )
 }
