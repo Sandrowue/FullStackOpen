@@ -28,9 +28,12 @@ const App = () => {
   const [selected, setSelected] = useState(null)
   const [votes, setVotes] = useState(() => Array(anecdotes.length).fill(0))
 
-  const randomAnecdote = () => {
-    const index = Math.floor(Math.random() * (anecdotes.length));
-    setSelected(index)
+  const randomAnecdote = (arrayToProcess) => {
+    return Math.floor(Math.random() * arrayToProcess.length)
+  }
+
+  const handleRandomAnecdote = () => {
+    setSelected(randomAnecdote(anecdotes))
   }
 
   const voteForSelected = () => {
@@ -38,6 +41,26 @@ const App = () => {
     votesCopy[selected] += 1
     setVotes(votesCopy)
   }
+
+  const mostVoted = () => {
+    let biggest = 0
+    let mostVotes = [0]
+
+    for (let i = 1; i < votes.length; i++) {
+      if (votes[i] > biggest) {
+        biggest = votes[i]
+        mostVotes = [i]
+      } else if (votes[i] === biggest && votes[i] > 0) {
+        mostVotes.push(i)
+      }
+    }
+
+    const selectedMostVoted = mostVotes[randomAnecdote(mostVotes)]
+    return anecdotes[selectedMostVoted]
+  }
+
+  const hasVotes = votes.some((vote) => vote > 0)
+  const topAnecdote = mostVoted()
 
   const Button = ({onClick, text}) => {
     return (
@@ -48,14 +71,26 @@ const App = () => {
 
   return (
     <div>
+      <h2>Anecdote for inspiration</h2>
       {selected === null ? (
-      <div><p>Click anecdote to start.</p>
-      <Button text="anecdote" onClick={randomAnecdote}/></div>
-    ) : (
-      <div><p>{anecdotes[selected]}</p><p>Votes: {votes[selected]}</p>
-      <Button text="vote" onClick={voteForSelected}/>
-      <Button text="next anecdote" onClick={randomAnecdote}/>
-      </div>
+        <div>
+          <p>Click anecdote to start.</p>
+          <Button text="anecdote" onClick={handleRandomAnecdote} />
+        </div>
+      ) : (
+        <div>
+          <p>{anecdotes[selected]}</p>
+          <p>Votes: {votes[selected]}</p>
+          <Button text="vote" onClick={voteForSelected} />
+          <Button text="next anecdote" onClick={handleRandomAnecdote} />
+          {hasVotes ? (
+            <div>
+              <h3>Anecdote with most votes</h3>
+              <br />
+              <p>{topAnecdote}</p>
+            </div>
+          ) : null}
+        </div>
       )}
     </div>
   )
